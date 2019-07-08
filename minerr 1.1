@@ -1,0 +1,70 @@
+using System;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Data;
+using System.Drawing;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using System.Windows.Forms;
+
+namespace minerr
+{
+    public partial class Form1 : Form
+    {
+        int width = 10;
+        int height = 10;
+        int offset = 30;
+        int bombPercent = 10;
+        bool isFirstClick = true;
+        
+        FieldButton[,] field;
+        int bombs = 0;
+        public Form1()
+        {
+            InitializeComponent();
+        }
+
+        public void Form1_Load(object sender, EventArgs e)
+        {
+            
+        }
+
+       
+       
+        /// <summary>
+        /// tworzy losowe pole przyciskow
+        /// </summary>
+        public void GenerateField() 
+        {
+            Random random = new Random();
+            for (int y = 0; y < height; y++) 
+            {
+                for (int x = 0; x < width; x++) 
+                {
+                    FieldButton newButton = new FieldButton();
+                    newButton.Location = new Point(x * offset+40, y * offset+40);
+                    newButton.Size = new Size(offset, offset);
+                    newButton.isClickable = true;
+                    if (random.Next(0, 100) <= bombPercent) 
+                    {
+                        newButton.isBomb = true;
+                        bombs++;
+                    }
+                    newButton.xCoord = x;
+                    newButton.yCoord = y;
+                    Controls.Add(newButton); 
+                    field[x, y] = newButton; 
+                }
+            }
+        }
+        
+        
+    }
+   
+
+    
+
+
+    
+}
